@@ -85,7 +85,7 @@ def create_image_grid(images, grid_size=None):
     return grid
 
 # Frame generation func for moviepy.
-def make_frame(t, Gs, fps, grid_size, image_zoom):
+def make_frame(t, Gs, fps, grid_size, image_zoom, num_frames):
     frame_idx = int(np.clip(np.round(t * fps), 0, num_frames - 1))
     latents = all_latents[frame_idx]
     fmt = dict(func=tflib.convert_images_to_uint8, nchw_to_nhwc=True)
