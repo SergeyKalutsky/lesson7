@@ -14,7 +14,7 @@ import os
 import base64
 from IPython.display import HTML
 
-def generate_zs_from_seeds(seeds):
+def generate_zs_from_seeds(seeds, Gs):
     zs = []
     for seed_idx, seed in enumerate(seeds):
         rnd = np.random.RandomState(seed)
@@ -23,7 +23,7 @@ def generate_zs_from_seeds(seeds):
     return zs
 
 
-def generate_images(zs, truncation_psi):
+def generate_images(zs, truncation_psi, Gs):
     Gs_kwargs = dnnlib.EasyDict()
     Gs_kwargs.output_transform = dict(func=tflib.convert_images_to_uint8, nchw_to_nhwc=True)
     Gs_kwargs.randomize_noise = False
@@ -85,7 +85,7 @@ def create_image_grid(images, grid_size=None):
     return grid
 
 # Frame generation func for moviepy.
-def make_frame(t):
+def make_frame(t, Gs):
     frame_idx = int(np.clip(np.round(t * fps), 0, num_frames - 1))
     latents = all_latents[frame_idx]
     fmt = dict(func=tflib.convert_images_to_uint8, nchw_to_nhwc=True)
