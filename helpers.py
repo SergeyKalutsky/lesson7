@@ -23,7 +23,7 @@ def generate_zs_from_seeds(seeds, Gs):
     return zs
 
 
-def generate_images(zs, truncation_psi, Gs):
+def generate_images(zs, truncation_psi, Gs, noise_vars):
     Gs_kwargs = dnnlib.EasyDict()
     Gs_kwargs.output_transform = dict(func=tflib.convert_images_to_uint8, nchw_to_nhwc=True)
     Gs_kwargs.randomize_noise = False
